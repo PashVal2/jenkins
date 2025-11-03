@@ -31,7 +31,6 @@ pipeline {
                 sh """
                 docker run -d --name test-app -p 8081:8081 ${IMAGE_NAME}:${IMAGE_TAG}
                 sleep 10
-                # Проверяем HTTP через host.docker.internal
                 curl http://host.docker.internal:8081 || (echo 'Container test failed!' && exit 1)
                 docker stop test-app && docker rm test-app
                 """

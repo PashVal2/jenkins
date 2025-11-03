@@ -9,7 +9,7 @@ services:
     build:
       context: .
     container_name: jenkins-app
-    expose:
+    ports:
       - "8081:8081"
 
   jenkins:
