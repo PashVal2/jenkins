@@ -8,12 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('Build Docker Image') {
-            steps {
-                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
-            }
-        }
-
         stage('Build JAR and Run Tests') {
             agent {
                 docker {
@@ -23,6 +17,12 @@ pipeline {
             }
             steps {
                 sh 'mvn clean test'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
 
