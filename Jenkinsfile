@@ -22,7 +22,6 @@ pipeline {
             steps {
                 echo "Building project and running tests..."
                 sh 'mvn clean package'
-                sh 'mvn test'
             }
             post {
                 always {
