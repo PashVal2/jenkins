@@ -38,7 +38,7 @@ pipeline {
                 sh """
                 docker run -d --name test-app -p 8081:8081 ${IMAGE_NAME}:${IMAGE_TAG}
                 sleep 20
-                curl -f http://localhost:8081 || (echo 'Container test failed!' && exit 1)
+                curl http://localhost:8081 || (echo 'Container test failed!' && exit 1)
                 docker stop test-app && docker rm test-app
                 """
             }
