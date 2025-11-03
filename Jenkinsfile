@@ -14,6 +14,18 @@ pipeline {
             }
         }
 
+        stage('Build JAR and Run Tests') {
+            agent {
+                docker {
+                    image 'maven:3.8.5-openjdk-17-slim'
+                    args '-v /root/.m2:/root/.m2'
+                }
+            }
+            steps {
+                sh 'mvn clean test'
+            }
+        }
+
         stage('Test Docker Container') {
             steps {
                 sh """
