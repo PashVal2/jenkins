@@ -1,12 +1,13 @@
-package org.valdom.jenkins.controller;
+package org.valdon.jenkins.controller;
 
-import org.valdom.jenkins.exception.ExceptionBody;
+import org.valdon.jenkins.exception.ExceptionBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.valdon.jenkins.exception.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +29,12 @@ public class ControllerAdvice {
                 )
         );
         return exBody;
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionBody ResourceNotFoundHandler(ResourceNotFoundException ex) {
+        return new ExceptionBody(ex.getMessage());
     }
 
 }

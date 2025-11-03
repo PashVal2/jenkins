@@ -1,6 +1,6 @@
-package org.valdom.jenkins.entity;
+package org.valdon.jenkins.entity;
 
-import org.valdom.jenkins.entity.enums.TaskStatus;
+import org.valdon.jenkins.entity.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.*;
 

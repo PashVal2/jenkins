@@ -1,6 +1,6 @@
-package org.valdom.jenkins.repository;
+package org.valdon.jenkins.repository;
 
-import org.valdom.jenkins.entity.TaskEntity;
+import org.valdon.jenkins.entity.TaskEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,12 +1,12 @@
-package org.valdom.jenkins.service.impl;
+package org.valdon.jenkins.service.impl;
 
-import org.valdom.jenkins.entity.TaskEntity;
-import org.valdom.jenkins.entity.enums.TaskStatus;
-import org.valdom.jenkins.exception.ResourceNotFoundException;
+import org.valdon.jenkins.entity.TaskEntity;
+import org.valdon.jenkins.entity.enums.TaskStatus;
+import org.valdon.jenkins.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.valdom.jenkins.repository.TaskRepository;
-import org.valdom.jenkins.service.TaskService;
+import org.valdon.jenkins.repository.TaskRepository;
+import org.valdon.jenkins.service.TaskService;
 
 @Service
 @RequiredArgsConstructor

@@ -1,6 +1,6 @@
-package org.valdom.jenkins.service;
+package org.valdon.jenkins.service;
 
-import org.valdom.jenkins.entity.TaskEntity;
+import org.valdon.jenkins.entity.TaskEntity;
 
 public interface TaskService {
 

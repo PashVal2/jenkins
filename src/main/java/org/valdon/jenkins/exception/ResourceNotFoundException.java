@@ -1,4 +1,4 @@
-package org.valdom.jenkins.exception;
+package org.valdon.jenkins.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

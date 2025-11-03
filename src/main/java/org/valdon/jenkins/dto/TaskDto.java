@@ -1,12 +1,12 @@
-package org.valdom.jenkins.dto;
+package org.valdon.jenkins.dto;
 
-import org.valdom.jenkins.entity.enums.TaskStatus;
+import org.valdon.jenkins.entity.enums.TaskStatus;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.valdom.jenkins.validation.OnCreate;
+import org.valdon.jenkins.validation.OnCreate;
 
 @Data
 @NoArgsConstructor

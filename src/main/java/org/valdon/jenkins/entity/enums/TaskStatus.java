@@ -1,4 +1,4 @@
-package org.valdom.jenkins.entity.enums;
+package org.valdon.jenkins.entity.enums;
 
 public enum TaskStatus {
 

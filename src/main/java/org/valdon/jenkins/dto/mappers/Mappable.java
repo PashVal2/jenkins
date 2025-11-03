@@ -1,9 +1,9 @@
-package org.valdom.jenkins.dto.mappers;
+package org.valdon.jenkins.dto.mappers;
 
 
 public interface Mappable<E, D> {
 
-    E ToEntity(D dto);
+    E toEntity(D dto);
 
     D toDto(E entity);
 

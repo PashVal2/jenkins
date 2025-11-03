@@ -1,7 +1,7 @@
-package org.valdom.jenkins.dto.mappers;
+package org.valdon.jenkins.dto.mappers;
 
-import org.valdom.jenkins.dto.TaskDto;
-import org.valdom.jenkins.entity.TaskEntity;
+import org.valdon.jenkins.dto.TaskDto;
+import org.valdon.jenkins.entity.TaskEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

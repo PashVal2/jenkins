@@ -1,4 +1,4 @@
-package org.valdom.jenkins.exception;
+package org.valdon.jenkins.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,3 +1,3 @@
-package org.valdom.jenkins.validation;
+package org.valdon.jenkins.validation;
 
 public interface OnCreate { }
