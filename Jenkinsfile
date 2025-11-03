@@ -9,32 +9,41 @@ pipeline {
     }
 
     stages {
+        // Получаем код из Git
         stage('Checkout') {
             steps {
+                echo "Checking out code from Git..."
                 git 'https://github.com/PashVal2/jenkins.git'
             }
         }
 
+        // Сборка JAR и запуск тестов
         stage('Build JAR & Run Tests') {
             steps {
+                echo "Building project and running tests..."
                 sh 'mvn clean package'
                 sh 'mvn test'
             }
             post {
                 always {
+                    echo "Recording test results..."
                     junit '**/target/surefire-reports/*.xml'
                 }
             }
         }
 
+        // Сборка Docker образа
         stage('Build Docker Image') {
             steps {
+                echo "Building Docker image..."
                 sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
 
+        // Тестируем Docker контейнер
         stage('Test Docker Container') {
             steps {
+                echo "Testing Docker container..."
                 sh """
                 docker run -d --name test-app -p 8081:8081 ${IMAGE_NAME}:${IMAGE_TAG}
                 sleep 10
@@ -44,8 +53,10 @@ pipeline {
             }
         }
 
+        // Деплой на стейджинг
         stage('Deploy to Staging') {
             steps {
+                echo "Deploying to staging..."
                 sh """
                 docker stop ${STAGING_CONTAINER} || true
                 docker rm ${STAGING_CONTAINER} || true
@@ -56,14 +67,17 @@ pipeline {
             }
         }
 
+        // Ручное подтверждение деплоя в продакшн
         stage('Manual Approval') {
             steps {
                 input message: 'Deploy to Production?', ok: 'Deploy'
             }
         }
 
+        // Деплой в продакшн
         stage('Deploy to Production') {
             steps {
+                echo "Deploying to production..."
                 sh """
                 docker stop ${PROD_CONTAINER} || true
                 docker rm ${PROD_CONTAINER} || true
