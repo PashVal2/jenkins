@@ -37,8 +37,9 @@ pipeline {
             steps {
                 sh """
                 docker run -d --name test-app -p 8081:8081 ${IMAGE_NAME}:${IMAGE_TAG}
-                sleep 20
-                docker inspect -f '{{.State.Running}}' test-app
+                sleep 10
+                # Проверяем HTTP через host.docker.internal
+                curl http://host.docker.internal:8081 || (echo 'Container test failed!' && exit 1)
                 docker stop test-app && docker rm test-app
                 """
             }
@@ -47,11 +48,11 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 sh """
-                docker run -d --name test-app -p 8081:8081 ${IMAGE_NAME}:${IMAGE_TAG}
+                docker stop ${STAGING_CONTAINER} || true
+                docker rm ${STAGING_CONTAINER} || true
+                docker run -d --name ${STAGING_CONTAINER} -p 8082:8081 ${IMAGE_NAME}:${IMAGE_TAG}
                 sleep 10
-                # Проверяем HTTP через host.docker.internal
-                curl http://host.docker.internal:8081 || (echo 'Container test failed!' && exit 1)
-                docker stop test-app && docker rm test-app
+                curl -f http://host.docker.internal:8082 || (echo 'Staging test failed!' && exit 1)
                 """
             }
         }
