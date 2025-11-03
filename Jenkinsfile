@@ -15,9 +15,21 @@ pipeline {
             }
         }
 
-        stage('Build JAR') {
+        stage('Build JAR & Run Tests') {
+            agent {
+                docker {
+                    image 'maven:3.8.5-openjdk-17-slim'
+                    args '-v /root/.m2:/root/.m2' // кэш Maven зависимостей
+                }
+            }
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn clean package'
+                sh 'mvn test'
+            }
+            post {
+                always {
+                    junit '**/target/surefire-reports/*.xml'
+                }
             }
         }
 
