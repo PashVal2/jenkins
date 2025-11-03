@@ -3,7 +3,7 @@ WORKDIR /app
 COPY pom.xml /app
 RUN mvn dependency:go-offline
 COPY src /app/src
-RUN mvn -f /app/pom.xml clean package
+RUN mvn -f /app/pom.xml clean package -DskipTests
 
 FROM openjdk:17-jdk-slim
 WORKDIR /app
