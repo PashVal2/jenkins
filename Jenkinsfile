@@ -4,7 +4,6 @@ pipeline {
     environment {
         IMAGE_NAME = "spring-app"
         IMAGE_TAG = "latest"
-        STAGING_CONTAINER = "spring-staging"
         PROD_CONTAINER = "jenkins-app"
     }
 
@@ -12,18 +11,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 git 'https://github.com/PashVal2/jenkins.git'
-            }
-        }
-
-        stage('Build JAR') {
-            agent {
-                docker {
-                    image 'maven:3.8.5-openjdk-17-slim'
-                    args '-v /root/.m2:/root/.m2'
-                }
-            }
-            steps {
-                sh 'mvn clean package'
             }
         }
 
