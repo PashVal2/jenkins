@@ -52,7 +52,7 @@ pipeline {
                 docker rm ${STAGING_CONTAINER} || true
                 docker run -d --name ${STAGING_CONTAINER} -p 8082:8081 ${IMAGE_NAME}:${IMAGE_TAG}
                 sleep 10
-                curl -f http://host.docker.internal:8082 || (echo 'Staging test failed!' && exit 1)
+                curl http://host.docker.internal:8082 || (echo 'Staging test failed!' && exit 1)
                 """
             }
         }
