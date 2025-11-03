@@ -16,12 +16,6 @@ pipeline {
         }
 
         stage('Build JAR & Run Tests') {
-            agent {
-                docker {
-                    image 'maven:3.8.5-openjdk-17-slim'
-                    args '-v /root/.m2:/root/.m2' // кэш Maven зависимостей
-                }
-            }
             steps {
                 sh 'mvn clean package'
                 sh 'mvn test'
@@ -33,43 +27,32 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit '**/target/surefire-reports/*.xml'
-                }
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
+                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
 
         stage('Test Docker Container') {
             steps {
-                sh '''
+                sh """
                 docker run -d --name test-app -p 8081:8081 ${IMAGE_NAME}:${IMAGE_TAG}
                 sleep 10
                 curl -f http://localhost:8081 || (echo "Container test failed!" && exit 1)
                 docker stop test-app && docker rm test-app
-                '''
+                """
             }
         }
 
         stage('Deploy to Staging') {
             steps {
-                sh '''
+                sh """
                 docker stop ${STAGING_CONTAINER} || true
                 docker rm ${STAGING_CONTAINER} || true
                 docker run -d --name ${STAGING_CONTAINER} -p 8082:8081 ${IMAGE_NAME}:${IMAGE_TAG}
                 sleep 5
                 curl -f http://localhost:8082 || (echo "Staging test failed!" && exit 1)
-                '''
+                """
             }
         }
 
@@ -81,11 +64,11 @@ pipeline {
 
         stage('Deploy to Production') {
             steps {
-                sh '''
+                sh """
                 docker stop ${PROD_CONTAINER} || true
                 docker rm ${PROD_CONTAINER} || true
                 docker run -d --name ${PROD_CONTAINER} -p 8083:8081 ${IMAGE_NAME}:${IMAGE_TAG}
-                '''
+                """
             }
         }
     }
