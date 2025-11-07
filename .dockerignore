@@ -1,9 +1,8 @@
-# GIT
-.gitignore
-
-# target
 target
 
-# IDE
+### GIT ###
+.gitignore
+
+### IDE ###
 .idea
 *.iml
