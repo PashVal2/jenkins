@@ -25,8 +25,7 @@ public class ControllerAdvice {
         List<FieldError> fieldErrors = ex.getFieldErrors();
         exBody.setErrors(fieldErrors.stream()
                 .collect(Collectors.toMap(FieldError::getField,
-                        FieldError::getDefaultMessage)
-                )
+                        FieldError::getDefaultMessage))
         );
         return exBody;
     }
